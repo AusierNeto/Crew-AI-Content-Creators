@@ -31,6 +31,14 @@ class MediaCrew():
             tools=[DallETool(model='dall-e-3', size='1024x1024')]
         )
 
+    # @agent
+    # def video_narrator(self) -> Agent:
+    #     return Agent(
+    #         config=self.agents_config['video_narrator'],
+    #         verbose=True,
+    #         tools=[ElevenTTSTool()]
+    #     )
+    
     @task
     def script_task(self) -> Task:
         return Task(
@@ -42,7 +50,8 @@ class MediaCrew():
     def thumbnail_task(self) -> Task:
         return Task(
             config=self.tasks_config['thumbnail_task'],
-            output_file='out/thumb_output.md'
+            output_file='out/thumb_output.md',
+            depends_on=[self.script_task]
         )
     
     @crew

@@ -21,6 +21,7 @@ crewai install
 ### Customizing
 
 **Add your `OPENAI_API_KEY` into the `.env` file**
+**Add your `ELEVEN_LABS_API_KEY` into the `.env` file**
 
 - Modify `src/media_crew/config/agents.yaml` to define your agents
 - Modify `src/media_crew/config/tasks.yaml` to define your tasks

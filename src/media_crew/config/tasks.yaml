@@ -14,3 +14,12 @@ thumbnail_task:
   expected_output: >
     URL pública da imagem PNG.
   agent: thumbnail_designer
+
+# narrative_task:
+#   depends_on: >
+#     [task1]
+#   description: >
+#     create a 15 seconds narration based on the following script: {script}
+#   expected_output: >
+#     An audio file with the voice over.
+#   agent: video_narrator
