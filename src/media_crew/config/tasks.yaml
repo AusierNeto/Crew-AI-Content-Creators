@@ -1,0 +1,16 @@
+script_task:
+  description: >
+    Escreva um roteiro vertical (≤40 palavras) sobre {topic},
+    incluindo hook, dado curioso e CTA. O ano atual é {current_year}
+  expected_output: >
+    Markdown com cabeçalho "ROTEIRO" e o texto em uma linha.
+  agent: script_writer
+
+thumbnail_task:
+  depends_on: >
+    [task1]
+  description: >
+    Crie uma imagem 1024×1024 minimalista que sintetize o roteiro.
+  expected_output: >
+    URL pública da imagem PNG.
+  agent: thumbnail_designer
