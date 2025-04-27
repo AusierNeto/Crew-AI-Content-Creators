@@ -1,25 +1,26 @@
 script_task:
   description: >
     Escreva um roteiro vertical (≤40 palavras) sobre {topic},
-    incluindo hook, dado curioso e CTA. O ano atual é {current_year}
+    incluindo hook, dado curioso e CTA. O ano atual é {current_year}.
   expected_output: >
     Markdown com cabeçalho "ROTEIRO" e o texto em uma linha.
   agent: script_writer
 
 thumbnail_task:
-  depends_on: >
-    [task1]
+  skip: True
+  depends_on: [script_task]          # ← nome real da task
   description: >
-    Crie uma imagem 1024×1024 minimalista que sintetize o roteiro.
+    Crie uma imagem 1024×1024 minimalista que sintetize o roteiro
+    "{{ script_task.output }}".
   expected_output: >
     URL pública da imagem PNG.
   agent: thumbnail_designer
 
-# narrative_task:
-#   depends_on: >
-#     [task1]
-#   description: >
-#     create a 15 seconds narration based on the following script: {script}
-#   expected_output: >
-#     An audio file with the voice over.
-#   agent: video_narrator
+narrative_task:
+  depends_on: [script_task]
+  description: >
+    Crie uma narração de 15 s usando o roteiro:
+    "{{ script_task.output }}".
+  expected_output: >
+    Caminho do arquivo MP3 com a voz.
+  agent: video_narrator

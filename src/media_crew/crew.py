@@ -4,6 +4,8 @@ from crewai_tools import SerperDevTool, DallETool
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
 
+from media_crew.tools.eleven_tts import ElevenTTSTool
+
 
 @CrewBase
 class MediaCrew():
@@ -31,13 +33,14 @@ class MediaCrew():
             tools=[DallETool(model='dall-e-3', size='1024x1024')]
         )
 
-    # @agent
-    # def video_narrator(self) -> Agent:
-    #     return Agent(
-    #         config=self.agents_config['video_narrator'],
-    #         verbose=True,
-    #         tools=[ElevenTTSTool()]
-    #     )
+    @agent
+    def video_narrator(self) -> Agent:
+        return Agent(
+            config=self.agents_config['video_narrator'],
+            verbose=True,
+            llm   = "gpt-3.5-turbo",
+            tools = [ElevenTTSTool()]
+        )
     
     @task
     def script_task(self) -> Task:
@@ -52,6 +55,13 @@ class MediaCrew():
             config=self.tasks_config['thumbnail_task'],
             output_file='out/thumb_output.md',
             depends_on=[self.script_task]
+        )
+    
+    @task
+    def narrative_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['narrative_task'],
+            output_file="out/voice_output.mp3"
         )
     
     @crew

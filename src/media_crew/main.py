@@ -21,7 +21,8 @@ def run():
     """
     inputs = {
         'topic': TOPIC,
-        'current_year': str(datetime.now().year)
+        'current_year': str(datetime.now().year),
+        "voice_id": "pNInz6obpgDQGcFmaJgB"
     }
     
     try:
