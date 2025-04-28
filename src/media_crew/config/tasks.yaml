@@ -16,11 +16,12 @@ thumbnail_task:
     URL pública da imagem PNG.
   agent: thumbnail_designer
 
-narrative_task:
+narrative_task:                       # ★ NOVA TASK
   depends_on: [script_task]
   description: >
-    Crie uma narração de 15 s usando o roteiro:
-    "{{ script_task.output }}".
-  expected_output: >
-    Caminho do arquivo MP3 com a voz.
+    Gere narração de 15 s para "{{ script_task.output }}",
+    usando voz Bella (ID EXAVITQu4vr4xnSDxMaL).
+  expected_output: Arquivo MP3 gerado.
   agent: video_narrator
+  inputs:               # → valores que o agente recebe
+    voice_id: EXAVITQu4vr4xnSDxMaL
