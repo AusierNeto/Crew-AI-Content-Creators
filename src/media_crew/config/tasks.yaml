@@ -25,3 +25,13 @@ narrative_task:                       # ★ NOVA TASK
   agent: video_narrator
   inputs:               # → valores que o agente recebe
     voice_id: EXAVITQu4vr4xnSDxMaL
+
+runway_video_task:
+  depends_on: [script_task]                # usa o roteiro
+  description: >
+    Crie um vídeo vertical (4 s) pelo Runway para o roteiro:
+    "{{ script_task.output }}".
+  expected_output: Caminho do MP4 gerado.
+  agent: videomaker_runway
+  inputs:
+    duration: 4

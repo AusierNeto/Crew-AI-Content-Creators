@@ -1,10 +1,12 @@
+from media_crew.tools.eleven_tts import ElevenTTSTool
+from media_crew.tools.runway_video_tool import RunwayVideoTool
+
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task, before_kickoff, after_kickoff
 from crewai_tools import SerperDevTool, DallETool
 from crewai.agents.agent_builder.base_agent import BaseAgent
 from typing import List
 
-from media_crew.tools.eleven_tts import ElevenTTSTool
 
 
 @CrewBase
@@ -42,6 +44,15 @@ class MediaCrew():
             tools = [ElevenTTSTool()]
         )
     
+    @agent
+    def videomaker_runway(self) -> Agent:
+        return Agent(
+            config=self.agents_config['videomaker_runway'],
+            llm="gpt-3.5-turbo",
+            tools=[RunwayVideoTool()],
+            verbose=True,
+        )
+    
     @task
     def script_task(self) -> Task:
         return Task(
@@ -60,8 +71,13 @@ class MediaCrew():
     @task
     def narrative_task(self) -> Task:
         return Task(
-            config=self.tasks_config['narrative_task'],
-            output_file="out/voice_output.mp3"
+            config=self.tasks_config['narrative_task']
+        )
+    
+    @task
+    def videomaker_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['runway_video_task']
         )
     
     @crew
