@@ -1,4 +1,7 @@
 .env
 __pycache__/
 .DS_Store
-/out/*
+
+assets/*
+out/*
+**.mp4
